@@ -75,7 +75,7 @@ static int _csync_detect_update(CSYNC *ctx, const char *file,
   }
   len = strlen(path);
 
-  h = c_jhash64((uint8_t *) path, len, 0);
+  h = c_jhash((uint8_t *) path, len, 0);
   size = sizeof(csync_file_stat_t) + len + 1;
 
   st = c_malloc(size);

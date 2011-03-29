@@ -22,6 +22,7 @@ else (LIBSSH_LIBRARIES AND LIBSSH_INCLUDE_DIRS)
     NAMES
       libssh/libssh.h
     PATHS
+      /
       /usr/include
       /usr/local/include
       /opt/local/include
@@ -35,6 +36,7 @@ else (LIBSSH_LIBRARIES AND LIBSSH_INCLUDE_DIRS)
       ssh
       libssh
     PATHS
+      /
       /usr/lib
       /usr/local/lib
       /opt/local/lib

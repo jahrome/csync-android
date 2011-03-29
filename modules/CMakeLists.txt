@@ -1,6 +1,5 @@
 project(modules C)
 
-find_package(Libsmbclient REQUIRED)
 find_package(LibSSH 0.4.0)
 
 set(PLUGIN_VERSION_INSTALL_DIR "${PLUGIN_INSTALL_DIR}-${LIBRARY_SOVERSION}")
@@ -16,10 +15,6 @@ set(MODULES_PRIVATE_INCLUDE_DIRS
   ${LIBSMBCLIENT_INCLUDE_DIRS}
 )
 
-set(SMB_PLUGIN
-  csync_smb
-)
-
 set(SFTP_PLUGIN
   csync_sftp
 )
@@ -29,9 +24,6 @@ include_directories(
   ${MODULES_PRIVATE_INCLUDE_DIRS}
 )
 
-macro_add_plugin(${SMB_PLUGIN} csync_smb.c)
-target_link_libraries(${SMB_PLUGIN} ${CSTDLIB_LIBRARY} ${LIBSMBCLIENT_LIBRARIES})
-
 install(
   TARGETS
     ${SMB_PLUGIN}
@@ -40,10 +32,11 @@ install(
 )
 
 macro_add_plugin(csync_dummy csync_dummy.c)
+target_link_libraries(csync_dummy csync)
 
 if (LIBSSH_FOUND)
 macro_add_plugin(${SFTP_PLUGIN} csync_sftp.c)
-target_link_libraries(${SFTP_PLUGIN} ${CSTDLIB_LIBRARY} ${LIBSSH_LIBRARIES})
+target_link_libraries(${SFTP_PLUGIN} ${CSYNC_LIBRARY} ${CSTDLIB_LIBRARY} ${LIBSSH_LIBRARIES})
 
 install(
   TARGETS

@@ -3,7 +3,6 @@ project(libcsync C)
 add_subdirectory(std)
 
 find_package(SQLite3 REQUIRED)
-find_package(Iniparser REQUIRED)
 
 set(CSYNC_PUBLIC_INCLUDE_DIRS
   ${CMAKE_CURRENT_SOURCE_DIR}

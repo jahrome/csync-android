@@ -34,6 +34,7 @@ else (SQLITE3_LIBRARIES AND SQLITE3_INCLUDE_DIRS)
     NAMES
       sqlite3.h
     PATHS
+      /
       ${_SQLITE3_INCLUDEDIR}
       /usr/include
       /usr/local/include
@@ -44,8 +45,9 @@ else (SQLITE3_LIBRARIES AND SQLITE3_INCLUDE_DIRS)
 
   find_library(SQLITE3_LIBRARY
     NAMES
-      sqlite3
+      sqlite
     PATHS
+      /
       ${_SQLITE3_LIBDIR}
       /usr/lib
       /usr/local/lib

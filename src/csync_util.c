@@ -311,7 +311,7 @@ uint64_t csync_create_statedb_hash(CSYNC *ctx) {
   CSYNC_LOG(CSYNC_LOG_PRIORITY_INFO,
       "Normalized path for the statedb hash: %s", name);
 
-  hash  = c_jhash64((uint8_t *) name, strlen(name), 0);
+  hash  = c_jhash((uint8_t *) name, strlen(name), 0);
 
   SAFE_FREE(host);
   SAFE_FREE(path);

@@ -1,4 +1,3 @@
-if (UNIX)
   IF (NOT APPLICATION_NAME)
     MESSAGE(STATUS "${PROJECT_NAME} is used as APPLICATION_NAME")
     SET(APPLICATION_NAME ${PROJECT_NAME})
@@ -90,7 +89,6 @@ if (UNIX)
     "${SHARE_INSTALL_PREFIX}/info"
     CACHE PATH "The ${APPLICATION_NAME} info install dir (default prefix/info)"
   )
-endif (UNIX)
 
 if (WIN32)
   # Same same

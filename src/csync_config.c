@@ -18,7 +18,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <iniparser.h>
+//#include <iniparser.h>
 
 #include "c_lib.h"
 #include "csync_private.h"
@@ -40,36 +40,36 @@ static int _csync_config_copy_default (const char *config) {
 }
 
 int csync_config_load(CSYNC *ctx, const char *config) {
-  dictionary *dict;
+/*
+  //dictionary *dict;
 
-  /* copy default config, if no config exists */
   if (! c_isfile(config)) {
     if (_csync_config_copy_default(config) < 0) {
       return -1;
     }
   }
 
-  dict = iniparser_load(config);
+  //dict = iniparser_load(config);
   if (dict == NULL) {
     return -1;
   }
 
-  ctx->options.max_depth = iniparser_getint(dict, "global:max_depth", MAX_DEPTH);
+  //ctx->options.max_depth = iniparser_getint(dict, "global:max_depth", MAX_DEPTH);
   CSYNC_LOG(CSYNC_LOG_PRIORITY_TRACE, "Config: max_depth = %d",
       ctx->options.max_depth);
 
-  ctx->options.max_time_difference = iniparser_getint(dict,
+  //ctx->options.max_time_difference = iniparser_getint(dict,
       "global:max_time_difference", MAX_TIME_DIFFERENCE);
   CSYNC_LOG(CSYNC_LOG_PRIORITY_TRACE, "Config: max_time_difference = %d",
       ctx->options.max_time_difference);
 
-  ctx->options.sync_symbolic_links = iniparser_getboolean(dict,
+  //ctx->options.sync_symbolic_links = iniparser_getboolean(dict,
       "global:sync_symbolic_links", 0);
   CSYNC_LOG(CSYNC_LOG_PRIORITY_TRACE, "Config: sync_symbolic_links = %d",
       ctx->options.sync_symbolic_links);
 
-  iniparser_freedict(dict);
-
+  //iniparser_freedict(dict);
+*/
   return 0;
 }
 
