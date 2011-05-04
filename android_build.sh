@@ -1,11 +1,28 @@
-export PATH=$PATH:/home/jer/Projet_android/android-ndk-r5/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/
-cd build
-cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=../Android.cmake ..
-make
+export NDK=/home/jer/Projet_android/android-ndk-r5
+export TOOLCHAIN=/home/jer/standalone-toolchain
+export AOSP=/home/jer/cm7
+export PRODUCT=vision
+export PATH=$TOOLCHAIN/bin/:$PATH
 
-# Fix libcsync path in csync executable
-# cd buils/client
-# change and execute the last link command as below :
-#arm-linux-androideabi-gcc -g CMakeFiles/csync_client.dir/csync_client.obj CMakeFiles/csync_client.dir/csync_auth.obj ../src/libcsync.so /home/jer/cm7/manual/argp-standalone-1.3/libargp.a ../src/std/libcstdlib.a /home/jer/cm7/out/target/product/vision/system/lib/libsqlite.so -o csync -I/home/jer/Projet_android/android-ndk-r5/sources/cxx-stl/gnu-libstdc++/include -I/home/jer/Projet_android/android-ndk-r5/sources/cxx-stl/gnu-libstdc++/libs/armeabi-v7a/include -I/home/jer/cm7/bionic/libc/arch-arm/include -I/home/jer/cm7/bionic/libc/include -I/home/jer/cm7/bionic/libc/private -I/home/jer/cm7/bionic/libc/kernel/common -I/home/jer/cm7/bionic/libc/kernel/arch-arm -I/home/jer/cm7/bionic/libm/include -I/home/jer/cm7/bionic/libthread_db/include -I/home/jer/cm7/manual/argp-standalone-1.3 -I/home/jer/cm7/manual/libssh/include -I/home/jer/cm7/external/libncurses/include -I/home/jer/cm7/external/expat/lib -I/home/jer/cm7/external/openssl/include -I/home/jer/cm7/external/zlib -D__ARM_ARCH_5__ -D__ARM_ARCH_5T__ -D__ARM_ARCH_5E__ -D__ARM_ARCH_5TE__ -DANDROID -MMD -MP -march=armv7-a -mfloat-abi=softfp -mfpu=vfp -mthumb-interwork -fpic -fno-exceptions -fno-rtti -fexceptions -frtti -ffunction-sections -funwind-tables -fno-short-enums -Wno-psabi -fmessage-length=0 -Wl,--gc-sections -Wl,-z,nocopyreloc -Wl,--no-undefined -Wl,-z,noexecstack -Wl,-rpath-link=/home/jer/cm7/out/target/product/vision/system/lib -L/home/jer/cm7/out/target/product/vision/system/lib -Wl,--fix-cortex-a8 --sysroot=/home/jer/Projet_android/android-ndk-r5/platforms/android-9/arch-arm /home/jer/Projet_android/android-ndk-r5/sources/cxx-stl/gnu-libstdc++/libs/armeabi-v7a/libstdc++.a -lc -lm
-#
-#arm-linux-androideabi-gcc -g CMakeFiles/csync_client.dir/csync_client.obj CMakeFiles/csync_client.dir/csync_auth.obj /home/jer/cm7/manual/argp-standalone-1.3/libargp.a ../src/std/libcstdlib.a /home/jer/cm7/out/target/product/vision/system/lib/libsqlite.so -o csync -I/home/jer/Projet_android/android-ndk-r5/sources/cxx-stl/gnu-libstdc++/include -I/home/jer/Projet_android/android-ndk-r5/sources/cxx-stl/gnu-libstdc++/libs/armeabi-v7a/include -I/home/jer/cm7/bionic/libc/arch-arm/include -I/home/jer/cm7/bionic/libc/include -I/home/jer/cm7/bionic/libc/private -I/home/jer/cm7/bionic/libc/kernel/common -I/home/jer/cm7/bionic/libc/kernel/arch-arm -I/home/jer/cm7/bionic/libm/include -I/home/jer/cm7/bionic/libthread_db/include -I/home/jer/cm7/manual/argp-standalone-1.3 -I/home/jer/cm7/manual/libssh/include -I/home/jer/cm7/external/libncurses/include -I/home/jer/cm7/external/expat/lib -I/home/jer/cm7/external/openssl/include -I/home/jer/cm7/external/zlib -D__ARM_ARCH_5__ -D__ARM_ARCH_5T__ -D__ARM_ARCH_5E__ -D__ARM_ARCH_5TE__ -DANDROID -MMD -MP -march=armv7-a -mfloat-abi=softfp -mfpu=vfp -mthumb-interwork -fpic -fno-exceptions -fno-rtti -fexceptions -frtti -ffunction-sections -funwind-tables -fno-short-enums -Wno-psabi -fmessage-length=0 -Wl,--gc-sections -Wl,-z,nocopyreloc -Wl,--no-undefined -Wl,-z,noexecstack -Wl,-rpath-link=/home/jer/cm7/out/target/product/vision/system/lib -L/home/jer/cm7/out/target/product/vision/system/lib -Wl,--fix-cortex-a8 --sysroot=/home/jer/Projet_android/android-ndk-r5/platforms/android-9/arch-arm /home/jer/Projet_android/android-ndk-r5/sources/cxx-stl/gnu-libstdc++/libs/armeabi-v7a/libstdc++.a -lc -lm -L../src -lcsync
+export CC=arm-linux-androideabi-gcc
+export CXX=arm-linux-androideabi-g++
+export CFLAGS="-march=armv7-a -mfloat-abi=softfp -I$AOSP/external/sqlite/dist -I$AOSP/out/target/product/$PRODUCT/obj/include"
+export CPPFLAGS=$CFLAGS
+export LDFLAGS="-Wl,--fix-cortex-a8 -lsupc++ -L$AOSP/out/target/product/$PRODUCT/system/lib"
+export LIBS="$TOOLCHAIN/arm-linux-androideabi/lib/libstdc++.a"
+
+#rm -rf $TOOLCHAIN
+#$NDK/build/tools/make-standalone-toolchain.sh --platform=android-9 --install-dir=$TOOLCHAIN
+
+cd build
+cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_LINK_LIBRARY_FILE_FLAG=$TOOLCHAIN/arm-linux-androideabi/lib/libstdc++.a -DCMAKE_INSTALL_PREFIX=$AOSP/out/target/product/$PRODUCT/obj ..
+sed -i 's/-Wl,-soname,libcsync.so.0/-Wl,-soname,libcsync.so/' src/CMakeFiles/csync.dir/link.txt
+make -j2 # VERBOSE=1
+
+arm-linux-androideabi-strip client/csync
+arm-linux-androideabi-strip src/libcsync.so
+arm-linux-androideabi-strip modules/csync_sftp.so
+
+cp client/csync $AOSP/vendor/cyanogen/prebuilt/common/bin
+cp src/libcsync.so $AOSP/vendor/cyanogen/prebuilt/common/lib
+cp modules/csync_sftp.so $AOSP/vendor/cyanogen/prebuilt/common/lib

@@ -19,7 +19,7 @@ set(CLIENT_EXECUTABLE
 set(CLIENT_LINK_LIBRARIES
   ${CLIENT_EXECUTABLE}
   ${CSYNC_LIBRARY}
-  /home/jer/cm7/manual/argp-standalone-1.3/libargp.a
+  libargp.a
 )
 
 set(client_SRCS
